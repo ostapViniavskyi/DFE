@@ -41,7 +41,8 @@ def robust_symmetric_epipolar_distance(pts1, pts2, fundamental_mat, gamma=0.5):
         tensor: robust symmetric epipolar distance
     """
 
-    sed = symmetric_epipolar_distance(pts1, pts2, fundamental_mat)
-    ret = torch.clamp(sed, max=gamma)
+    ret = symmetric_epipolar_distance(pts1, pts2, fundamental_mat)
+    if gamma > 0:
+        ret = torch.clamp(ret, max=gamma)
 
     return ret
